@@ -87,7 +87,7 @@ function populateBoard(board, numBombs, pressedx,pressedy) {
 function App() {
   const height = 15;
   const width = 25;
-  const bombs = 10;
+  const bombs = 77;
   const board = createBoard(height, width);
   const [gameStatus, setGameStatus] = useState(true);
   const uncoverMap = createBoard(height,width);
