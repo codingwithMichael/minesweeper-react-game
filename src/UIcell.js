@@ -171,9 +171,6 @@ const UICell = (props) => {
             return;
         }
         if (hover.current == true) {            
-            console.log("start grid");
-            console.log(gridValues)
-            console.log("end grid");
             if (newGridMap[y][x] == 1) {
                 //press("pressed");
                 newGridMap[y][x] = 1;
@@ -182,7 +179,6 @@ const UICell = (props) => {
                 return
             }
             if (newGridMap[y][x] == 0) {
-                console.log(2);
                 newGridMap[y][x] = 2;
                 const newGridValues = { board: gridValues.board, uncoverMap: newGridMap, bombsLeft: gridValues.bombsLeft};
                 updateGrid(newGridValues);
@@ -190,11 +186,9 @@ const UICell = (props) => {
                 return
             }
             if (newGridMap[y][x] == 2) {
-                console.log(3)
                 newGridMap[y][x] = 0;
                 const newGridValues = { board: gridValues.board, uncoverMap: newGridMap, bombsLeft: gridValues.bombsLeft};
                 updateGrid(newGridValues);
-                //press("emptyCell");
                 return
             }
         }   
@@ -221,7 +215,6 @@ const UICell = (props) => {
         } else if (type == "lossUncover") {
             return "lossUncover"
         }
-        //console.log("yao is ming", cell, type)
         return cell;
     }
     function uncoverMines(board, uncoverMap) {
@@ -234,20 +227,12 @@ const UICell = (props) => {
         }
     }
     function uncovertile() {
-        
         let board = gridValues.board;
         var newGridMap = gridValues.uncoverMap;
-        
         if (!gameMade) { 
             board = populateBoard(board, props.bombs, x, y);
-            //const newGridValues = { board: board, pressedAlready: true , uncoverMap: gridValues.uncoverMap, bombsLeft: gridValues.bombsLeft};
-            //updateGrid(newGridValues);
         }
-        console.log("beg")
-        console.log(gridValues.uncoverMap);
-        console.log("end")
         if (gridValues.uncoverMap[y][x] == 0 && number == 0 ) {
-            console.log("this is happening")
             let toBeChange = FillIn(board, x, y);
             if (toBeChange.size == 0) {
                 return;
@@ -258,28 +243,18 @@ const UICell = (props) => {
                 let y = item[1];
                 newGridMap[y][x] = 1;
             }
-            // const newGridValues = { board: gridValues.board, pressedAlready: true , uncoverMap: newGridMap, bombsLeft: gridValues.bombsLeft};
-            // updateGrid(newGridValues);
         } 
         const newGridValues = { board: gridValues.board, uncoverMap: newGridMap, bombsLeft: gridValues.bombsLeft};
         updateGrid(newGridValues);
         setGame(true); 
-        //pass the thing as the other thing 
         if (covertIDtoName(shouldBePressed) === "emptyCell") {
-            console.log("this happens for me,", x, y)
-            //press("pressed");
             let newGridMap = gridValues.uncoverMap;
             let board = gridValues.board
             newGridMap[y][x] = 1;
-
-            console.log("this happens as well")
             if (number == "B") {
-                //Document.locotion.reload(true);
                 uncoverMines(board, newGridMap);
                 updateLose(true);
-                console.log("you loser");
             }
-            
             const newGridValues = { board: gridValues.board, uncoverMap: newGridMap, bombsLeft: gridValues.bombsLeft};
             updateGrid(newGridValues);
         }
