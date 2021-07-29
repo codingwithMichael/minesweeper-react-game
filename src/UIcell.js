@@ -157,14 +157,13 @@ const UICell = (props) => {
             if (!didLose) {
                 uncovertile();
             }
-            
         }} onMouseEnter={() => {
             hover.current = true;
         }} onMouseLeave={() => {
             hover.current = false;
         }}
         key ={String(x) + " " + String(y)} >
-            {number}
+            {shouldBePressed == 1 && number}
         </div>
     )
     function handleSpaceBar() { 

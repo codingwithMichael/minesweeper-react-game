@@ -87,7 +87,7 @@ function populateBoard(board, numBombs, pressedx,pressedy) {
 function App() {
   const height = 15;
   const width = 25;
-  const bombs = 77;
+  const bombs = 10;
   const board = createBoard(height, width);
   const [gameStatus, setGameStatus] = useState(true);
   const uncoverMap = createBoard(height,width);
@@ -163,8 +163,8 @@ function TopBar(props) {
     let grid = gridValues.uncoverMap;
     let realGrid = gridValues.board;
     let isGameBeat = true
-    for(var i = 0; i < grid.length; i++) {
-      for(var j = 0; j < grid[i].length; j++) {
+    for(let i = 0; i < grid.length; i++) {
+      for(let j = 0; j < grid[i].length; j++) {
         
         if (grid[i][j] == 2) {
           numberOfFlags += 1;
@@ -178,13 +178,24 @@ function TopBar(props) {
       updateLose(true);
       setMessage("You won!");
 
-      let newGridMap = gridValues.uncoverMap;
-      let board = gridValues.board
-      uncoverRemainingBombs(newGridMap, board)
+      let bombsNeedToBePlace = false
+      for(let i = 0; i < grid.length; i++) {
+        for(let j = 0; j < grid[i].length; j++) {
+          if (grid[i][j] == 0) {
+            bombsNeedToBePlace = true
+          }
+        }
+      }
+      if (bombsNeedToBePlace) {
+        let newGridMap = gridValues.uncoverMap;
+        let board = gridValues.board
+        uncoverRemainingBombs(newGridMap, board)
 
-      const newGridValues = { board: gridValues.board, uncoverMap: newGridMap, bombsLeft: gridValues.bombsLeft};
-      updateGrid(newGridValues);
+        const newGridValues = { board: gridValues.board, uncoverMap: newGridMap, bombsLeft: gridValues.bombsLeft};
+        updateGrid(newGridValues);
+      }
     }
+    
     updateBombs(props.bombs - numberOfFlags);
 
 
